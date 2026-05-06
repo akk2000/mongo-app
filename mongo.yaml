@@ -1,5 +1,12 @@
 version: '3'
 services:
+  my-app:
+    image: my-node-app:v1  # <--- မင်း build ထားတဲ့ image နာမည်
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mongodb
+      
   mongodb:
     image: mongo
     ports:
