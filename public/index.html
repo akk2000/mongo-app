@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Profile</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; }
+        .display-mode { display: block; }
+        .edit-mode { display: none; }
+        input { display: block; margin: 10px 0; }
+    </style>
+</head>
+<body>
+    <h1>User Profile</h1>
+    
+    <div id="display-container" class="display-mode">
+        <p>Name: <span id="name-display"></span></p>
+        <p>Age: <span id="age-display"></span></p>
+        <p>Interests: <span id="interest-display"></span></p>
+        <button onclick="toggleEdit()">Edit Profile</button>
+    </div>
+
+    <div id="edit-container" class="edit-mode">
+        <input id="name-input" placeholder="Name">
+        <input id="age-input" placeholder="Age">
+        <input id="interest-input" placeholder="Interests">
+        <button onclick="saveProfile()">Save Profile</button>
+    </div>
+
+    <script>
+        // စစချင်းမှာ Data ကို DB ကနေ သွားယူမယ်
+        fetch('/get-profile').then(res => res.json()).then(data => {
+            document.getElementById('name-display').innerText = data.name || '---';
+            document.getElementById('age-display').innerText = data.age || '---';
+            document.getElementById('interest-display').innerText = data.interests || '---';
+        });
+
+        function toggleEdit() {
+            document.getElementById('display-container').style.display = 'none';
+            document.getElementById('edit-container').style.display = 'block';
+        }
+
+        async function saveProfile() {
+            const data = {
+                name: document.getElementById('name-input').value,
+                age: document.getElementById('age-input').value,
+                interests: document.getElementById('interest-input').value
+            };
+
+            await fetch('/update-profile', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(data)
+            });
+
+            location.reload(); // Refresh လုပ်ပြီး Data အသစ်ကို ပြမယ်
+        }
+    </script>
+</body>
+</html>
