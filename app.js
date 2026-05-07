@@ -8,7 +8,7 @@ app.use(bodyParser.json());
 app.use(express.static('public')); // HTML ဖိုင်တွေထားမယ့် နေရာ
 
 // ⚠️ ဒီနေရာမှာ မင်းရဲ့ Ubuntu IP နဲ့ ပြင်ပေးရမယ်
-const url = 'mongodb://admin:password@192.168.100.189:27017';
+const url = 'mongodb://admin:password@mongodb:27017';
 const client = new MongoClient(url);
 const dbName = 'user-account';
 

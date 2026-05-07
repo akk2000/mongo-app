@@ -1,9 +1,11 @@
 version: '3'
 services:
   my-app:
-    image: my-node-app:v1  # <--- မင်း build ထားတဲ့ image နာမည်
+    image: happytaipan/my-node-app:v3  # <--- မင်း build ထားတဲ့ image နာမည်
     ports:
       - "3000:3000"
+    environment:
+      - MONGO_URL=mongodb://mongodb:27017
     depends_on:
       - mongodb
       
